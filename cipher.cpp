@@ -233,22 +233,22 @@ void Cipher::mixColumns(string &data, bool operation)
     string cp(data);
     if(operation)
     {
-        for(int i=0;i<4;i+=4)
+        for(int i=0;i<data.size();i+=4)
         {
-            cp[i] = (BYTE)(GMul(0x02, data[0]) ^ GMul(0x03, data[1]) ^ data[2] ^ data[3]);
-            cp[i+1] = (BYTE)(data[0] ^ GMul(0x02, data[1]) ^ GMul(0x03, data[2]) ^ data[3]);
-            cp[i+2] = (BYTE)(data[0] ^ data[1] ^ GMul(0x02, data[2]) ^ GMul(0x03, data[3]));
-            cp[i+3] = (BYTE)(GMul(0x03, data[0]) ^ data[1] ^ data[2] ^ GMul(0x02, data[3]));
+            cp[i] = (BYTE)(GMul(0x02, data[i]) ^ GMul(0x03, data[i+1]) ^ data[i+2] ^ data[i+3]);
+            cp[i+1] = (BYTE)(data[i] ^ GMul(0x02, data[i+1]) ^ GMul(0x03, data[i+2]) ^ data[i+3]);
+            cp[i+2] = (BYTE)(data[i] ^ data[i+1] ^ GMul(0x02, data[i+2]) ^ GMul(0x03, data[i+3]));
+            cp[i+3] = (BYTE)(GMul(0x03, data[i]) ^ data[i+1] ^ data[i+2] ^ GMul(0x02, data[i+3]));
         }
     }
     else
     {
-        for(int i=0;i<4;i+=4)
+        for(int i=0;i<data.size();i+=4)
         {
-            cp[i] = (BYTE)GMul(0x0E, data[0]) ^ GMul(0x0B, data[1]) ^ GMul(0x0D, data[2]) ^ GMul(0x09, data[3]);
-            cp[i+1] = (BYTE)GMul(0x09, data[0]) ^ GMul(0x0E, data[1]) ^ GMul(0x0B, data[2]) ^ GMul(0x0D, data[3]);
-            cp[i+2] = (BYTE)GMul(0x0D, data[0]) ^ GMul(0x09, data[1]) ^ GMul(0x0E, data[2]) ^ GMul(0x0B, data[3]);
-            cp[i+3] = (BYTE)GMul(0x0B, data[0]) ^ GMul(0x0D, data[1]) ^ GMul(0x09, data[2]) ^ GMul(0x0E, data[3]);
+            cp[i] = (BYTE)GMul(0x0E, data[i]) ^ GMul(0x0B, data[i+1]) ^ GMul(0x0D, data[i+2]) ^ GMul(0x09, data[i+3]);
+            cp[i+1] = (BYTE)GMul(0x09, data[i]) ^ GMul(0x0E, data[i+1]) ^ GMul(0x0B, data[i+2]) ^ GMul(0x0D, data[i+3]);
+            cp[i+2] = (BYTE)GMul(0x0D, data[i]) ^ GMul(0x09, data[i+1]) ^ GMul(0x0E, data[i+2]) ^ GMul(0x0B, data[i+3]);
+            cp[i+3] = (BYTE)GMul(0x0B, data[i]) ^ GMul(0x0D, data[i+1]) ^ GMul(0x09, data[i+2]) ^ GMul(0x0E, data[i+3]);
         }
     }
     data = cp;
