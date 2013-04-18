@@ -170,11 +170,11 @@ void Cipher::decrypt(string &data)
 void Cipher::subBytes(string &data, bool operation)
 {
     if(operation)
-        for(char &i : data)
-            i = sBox[(((i>>4) & 0xF) << 4) + (i & 0xF)];
+        for(WORD i=0;i<data.size();i++)
+            data[i] = sBox[(((data[i]>>4) & 0xF) << 4) + (data[i] & 0xF)];
     else
-        for(char &i : data)
-            i = isBox[(((i>>4) & 0xF) << 4) + (i & 0xF)];
+        for(WORD i=0;i<data.size();i++)
+            data[i] = isBox[(((data[i]>>4) & 0xF) << 4) + (data[i] & 0xF)];
 }
 
 void Cipher::padBytes(string &data)
@@ -233,7 +233,7 @@ void Cipher::mixColumns(string &data, bool operation)
     string cp(data);
     if(operation)
     {
-        for(int i=0;i<data.size();i+=4)
+        for(WORD i=0;i<data.size();i+=4)
         {
             cp[i] = (BYTE)(GMul(0x02, data[i]) ^ GMul(0x03, data[i+1]) ^ data[i+2] ^ data[i+3]);
             cp[i+1] = (BYTE)(data[i] ^ GMul(0x02, data[i+1]) ^ GMul(0x03, data[i+2]) ^ data[i+3]);
@@ -243,7 +243,7 @@ void Cipher::mixColumns(string &data, bool operation)
     }
     else
     {
-        for(int i=0;i<data.size();i+=4)
+        for(WORD i=0;i<data.size();i+=4)
         {
             cp[i] = (BYTE)GMul(0x0E, data[i]) ^ GMul(0x0B, data[i+1]) ^ GMul(0x0D, data[i+2]) ^ GMul(0x09, data[i+3]);
             cp[i+1] = (BYTE)GMul(0x09, data[i]) ^ GMul(0x0E, data[i+1]) ^ GMul(0x0B, data[i+2]) ^ GMul(0x0D, data[i+3]);
