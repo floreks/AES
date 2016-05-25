@@ -1,12 +1,14 @@
-#include <QDebug>
+#include <iostream>
 #include "cipher.h"
+
+using namespace std;
 
 int main()
 {
     string data = "AES Test 12345 ASLDASOFAO....zxckm&!@^";
     Cipher::encrypt(data);
-    qDebug() << "Encrypted: " << data.c_str();
+    cout << "Encrypted: " << data << endl;
     Cipher::decrypt(data);
-    qDebug() << "Decrypted: " << data.c_str();
+    cout << "Decrypted: " << data;
     return 0;
 }
